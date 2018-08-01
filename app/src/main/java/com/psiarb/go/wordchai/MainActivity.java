@@ -71,12 +71,14 @@ public class MainActivity extends AppCompatActivity implements MiscFragment.Misc
 
 
     @Override
-    public void passCardData(int[] correct, int[] total) {
+    public void passCardData(int[] correct, int[] total, String talk) {
 
         System.out.println("***********passCardData called " + correct[1]);
 
         ENG_correct = correct;
         ENG_total = total;
+
+        String talkText = talk;
 
 
         CardsFragment cardsFragment = (CardsFragment) getSupportFragmentManager().findFragmentById(R.id.container_b);

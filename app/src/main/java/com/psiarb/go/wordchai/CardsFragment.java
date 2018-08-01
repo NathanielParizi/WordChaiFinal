@@ -2,8 +2,10 @@ package com.psiarb.go.wordchai;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,11 +73,14 @@ public class CardsFragment extends Fragment {
     private static boolean reverseShuffle;
 
 
+    public static String talk = "";
+
     private static int mStart, mEnd;
+    private final int MY_DATA_CHECK_CODE = 0;
 
     public interface CardsFragmentListener{
 
-        public void passCardData(int[] correct, int[] total);
+        public void passCardData(int[] correct, int[] total, String talk);
 
     }
 
@@ -116,6 +121,14 @@ public class CardsFragment extends Fragment {
 
 
 
+
+
+        // Fire off an intent to check if a TTS engine is installed
+        Intent checkIntent = new Intent();
+        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
+
+
         OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +163,9 @@ public class CardsFragment extends Fragment {
 
 
                     correctCardSelected();
-                }
+                }else{
+                    Toast.makeText(getContext(),"Try again, press OK or SWITCH",LENGTH_SHORT).show();
+                };
             }
         });
 
@@ -162,7 +177,9 @@ public class CardsFragment extends Fragment {
                 if(correctCard == 1){
 
                     correctCardSelected();
-                }
+                }else{
+                    Toast.makeText(getContext(),"Try again, press OK or SWITCH",LENGTH_SHORT).show();
+                };
             }
         });
 
@@ -174,7 +191,9 @@ public class CardsFragment extends Fragment {
                 if(correctCard == 2){
 
                     correctCardSelected();
-                }
+                }else{
+                    Toast.makeText(getContext(),"Try again, press OK or SWITCH",LENGTH_SHORT).show();
+                };
 
             }
         });
@@ -187,7 +206,9 @@ public class CardsFragment extends Fragment {
                 if(correctCard == 3){
 
                     correctCardSelected();
-                }
+                }else{
+                    Toast.makeText(getContext(),"Try again, press OK or SWITCH",LENGTH_SHORT).show();
+                };
 
             }
         });
@@ -599,7 +620,7 @@ public class CardsFragment extends Fragment {
     public void correctCardSelected(){
 
 
-        Toast.makeText(getContext(),"Yep thats it",LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"That is correct!",LENGTH_SHORT).show();
 
         answerComplete();
 
